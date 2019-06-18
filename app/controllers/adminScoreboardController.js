@@ -8,7 +8,7 @@ const Score = require('../models/Score.js')
 exports.showScoreForm = async (req, res) => {
   const hostels = await Hostels.find({}).exec()
   const eventList = await Events.find({}).exec()
-  res.render('auth/addScore', { 'eventList': eventList, 'hostels': hostels, 'title': 'Add Score' })
+  res.render('auth/addScore', { eventList: eventList, hostels: hostels, title: 'Add Score' })
 }
 
 exports.getPoints = async (req, res) => {
@@ -47,20 +47,20 @@ exports.createScore = async (req, res) => {
   if (errors.length) {
     const errorMessages = errors.map(error => error.msg)
     logger.error({ user: req.session.rollnumber, errors: errorMessages })
-    let data = req.body
+    const data = req.body
     res.render('admin/scoreboard', {
       data: data,
       error: errorMessages
     })
   } else {
     await Score.deleteMany({ event: req.body.eventId }).exec()
-    let noOfPositions = []// array of hostels at different positions with keys position1, position2... in the body's object
-    let noOfPoints = []// array of points of different positions with keys points1,points2.... in the body's object
-    let keys = Object.keys(req.body)
+    const noOfPositions = []// array of hostels at different positions with keys position1, position2... in the body's object
+    const noOfPoints = []// array of points of different positions with keys points1,points2.... in the body's object
+    const keys = Object.keys(req.body)
     keys.forEach(function (item) {
       if (item.indexOf('position') !== -1) {
         if (typeof req.body[item] !== 'object') {
-          let tempStr = req.body[item]
+          const tempStr = req.body[item]
           req.body[item] = [tempStr]
         }
         noOfPositions.push(req.body[item])// items entered into the array after checking the key
@@ -68,17 +68,17 @@ exports.createScore = async (req, res) => {
       if (item.indexOf('points') !== -1) { noOfPoints.push(req.body[item]) }// items added into the array after checking the key
     })
     for (let j = 0; j < noOfPositions.length; j++) {
-      let hostelList = noOfPositions[j]// get hostels at a particular position
-      let points = noOfPoints[j]// get points at a particular position
+      const hostelList = noOfPositions[j]// get hostels at a particular position
+      const points = noOfPoints[j]// get points at a particular position
       for (let i = 0; i < hostelList.length; i++) {
-        let pos = new Score({
+        const pos = new Score({
           hostel: hostelList[i],
           event: req.body.eventId,
           position: (j + 1),
           points: points
         })
         try {
-          let savedPos = await pos.save()
+          const savedPos = await pos.save()
           logger.info(`Scores of ${savedPos._id} added by ${req.user.username}`)
         } catch (error) {
           logger.error(error)

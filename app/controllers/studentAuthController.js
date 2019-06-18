@@ -7,7 +7,7 @@ exports.showLogin = (req, res) => {
 }
 
 exports.login = async (req, res) => {
-  let imapConfig = {
+  const imapConfig = {
     imap: {
       user: req.body.rollnumber,
       password: req.body.password,

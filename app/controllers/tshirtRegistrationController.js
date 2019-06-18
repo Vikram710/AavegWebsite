@@ -53,7 +53,7 @@ exports.savetTshirtData = async (req, res) => {
     const hostelData = await hostelController.getHostels()
     const hostelNames = hostelData.map(hostel => hostel.name)
     logger.error({ user: req.session.rollnumber, errors: errorMessages })
-    let data = req.body
+    const data = req.body
     data.hostels = hostelNames
     res.render('tshirt/tshirtReg', {
       data: data,
@@ -62,7 +62,7 @@ exports.savetTshirtData = async (req, res) => {
     })
   } else {
     logger.info(`Registration done for ${req.session.rollnumber}`)
-    let newTshirt = new TshirtDetail()
+    const newTshirt = new TshirtDetail()
     newTshirt.hostel = req.body.hostel
     newTshirt.size = req.body.size
     newTshirt.rollNumber = req.session.rollnumber
