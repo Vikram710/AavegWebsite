@@ -13,19 +13,10 @@
   <link rel="icon" type="image/png" href="images/aaveg_glyph_black.png">
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/custom_main.css" />
+  <link rel="stylesheet" href="css/inductions.css">
   <noscript>
     <link rel="stylesheet" href="css/noscript.css" />
   </noscript>
-  <style>
-    button{
-      background:black;
-    }
-    div.hameed{
-      background:black;
-      width:200px;
-      height:200px;
-    }
-  </style>
 </head>
 
 <body class="is-preload">
@@ -39,9 +30,8 @@
     </header>
 
     <!-- Nav -->
-    <nav id="nav">
+    <!-- <nav id="nav">
       <ul>
-        <!-- <li><a href="schedule">Schedule</a></li> -->
         <% if(typeof adminUser!=='undefined' && typeof adminUser.username!=='undefined') { %>
         <li><a href="logout">
             Logout :
@@ -51,12 +41,8 @@
             Logout :
             <%= rollnumber %></a></li>
         <%}%>
-        <li><button id="oc" onclick="doc(event)">OC</button></li>
-        <li><button id="content" onclick="doc(event)">Content</button></li>
-        <li><button id="design" onclick="doc(event)">Design</button></li>
       </ul>
     </nav>
-    <br<<br><br><br><br>
     <div id="mini-nav" class="">
       <i class="icon fa-bars"></i> MENU
     </div>
@@ -65,7 +51,6 @@
       <nav id="nav-mobile" class="">
         <div id="nav-mob-close" class="fa-times icon"></div>
         <ul>
-          <!-- <li><a href="schedule">Schedule</a></li> -->
           <% if(typeof adminUser!=='undefined' && typeof adminUser.username!=='undefined') { %>
           <li><a href="logout">
               Logout :
@@ -77,17 +62,22 @@
           <%}%>
         </ul>
       </nav>
-    </div>
+    </div> -->
 
 
     <!-- Main -->
     <div id="main">
-        <div id="hameed" class="hameed">hey</div>
-        <div id="docs">
-        <iframe id="oc-doc" src="https://docs.google.com/forms/d/e/1FAIpQLSfOKaznjuAMF7PvflUlSWKeSEDJ4ivQjsHcaNG9HCKghPSWSg/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0" style="display:none">Loading…</iframe>
-        <iframe id="content-doc" src="https://docs.google.com/forms/d/e/1FAIpQLSc0t170h79Ksm8ZjXf0UAWKXOvmXy6jY54b3zesq-AgLMT7Mw/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0"style="display:none">Loading…</iframe>
-        <iframe id="design-doc" src="https://docs.google.com/forms/d/e/1FAIpQLSc0y3Orypn8CWw7vQcMn8XZh7FSGwAUwHr61CIpjYz7oN6syA/viewform?embedded=true" width="640" height="398" frameborder="0" marginheight="0" marginwidth="0"style="display:none">Loading…</iframe>
-    </div>
+      <div id="hameed" class="hameed">hey</div>
+      <div id="doc-nav">
+        <button class="doc-button" id="oc" onclick="doc(event)">OC</button>
+        <button class="doc-button" id="content" onclick="doc(event)">Content</button>
+        <button class="doc-button" id="design" onclick="doc(event)">Design</button>
+      </div>
+      <div id="docs">
+        <iframe id="oc-doc" src="https://docs.google.com/forms/d/e/1FAIpQLSdAp-hOmPcNOR1_TwDvP8Kox1lzcCciBHrJ06Qkh3CzkfLyHw/viewform?embedded=true" width="100%" height="398" frameborder="0" marginheight="0" marginwidth="0" style="display:none">Loading…</iframe>
+        <iframe id="content-doc" src="https://docs.google.com/forms/d/e/1FAIpQLSd96-vX4q31r4kxrc_0qv-c55CsLOEPDRgi_PoslsNijqxbuw/viewform?embedded=true" width="100%" height="398" frameborder="0" marginheight="0" marginwidth="0"style="display:none">Loading…</iframe>
+        <iframe id="design-doc" src="https://docs.google.com/forms/d/e/1FAIpQLSfWeh4yhOb7ZKQVWI5gk8RyEYRvEDnPFjTLscQ_h0XlB0iTyA/viewform?embedded=true" width="100%" height="398" frameborder="0" marginheight="0" marginwidth="0"style="display:none">Loading…</iframe>
+      </div>
     </div>
 
     <!-- Footer -->
@@ -139,26 +129,6 @@
     <button class="JPO_close">Close</button>
   </div>
   <!-- Scripts -->
-  <script>
-      function doc(event){
-        document.getElementById('hameed').style.display="none";
-        if(event.target.id =="oc"){
-          document.getElementById('oc-doc').style.display="block";
-          document.getElementById('content-doc').style.display="none";
-          document.getElementById('design-doc').style.display="none";
-        }
-        if(event.target.id =="content"){
-          document.getElementById('content-doc').style.display="block";
-          document.getElementById('oc-doc').style.display="none";
-          document.getElementById('design-doc').style.display="none";
-        }
-        if(event.target.id =="design"){
-          document.getElementById('design-doc').style.display="block";
-          document.getElementById('oc-doc').style.display="none";
-          document.getElementById('content-doc').style.display="none";
-        }
-      }
-    </script>
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.scrollex.min.js"></script>
   <script src="js/jquery.scrolly.min.js"></script>
@@ -168,6 +138,7 @@
   <script src="js/util.js"></script>
   <script src="js/main.js"></script>
   <script src="js/custom_main.js"></script>
+  <script src="js/inductions.js"></script>
 </body>
 
 </html>

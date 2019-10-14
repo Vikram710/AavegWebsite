@@ -1,0 +1,26 @@
+#main {
+    background: rgba(0, 0, 0, 0.3);
+}
+button{
+    background:black;
+}
+div.hameed{
+    background:black;
+    width:200px;
+    height:200px;
+}
+#doc-nav {
+    display: flex;
+}
+.doc-button {
+    flex-grow: 1;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.doc-button.selected {
+    background: red!important;
+    color: white;
+}
+.doc-button:active {
+    border: 0;
+}
