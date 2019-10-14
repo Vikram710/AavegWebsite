@@ -1,5 +1,9 @@
 #main {
     background: rgba(0, 0, 0, 0.3);
+    padding-bottom: 24px;
+}
+#main .button {
+    color: unset;
 }
 button{
     background:black;
@@ -8,24 +12,33 @@ button{
     display: flex;
 }
 #doc-nav.normal{
-    flex-direction: column;
+    justify-content: space-around;
 }
 div.hameed{
+    text-align: center;
     color:white;
+    padding: 24px;
 }
 .doc-button {
     flex-grow: 1;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    background:white!important;
+    background:white;
     color:black;
-
 }
-.doc-button.selected {
-    background: red!important;
-    color: white;
-    font-weight: 700;
+#doc-nav.normal .doc-button {
+    flex-grow: unset;
+    border-radius: 5px;
 }
-.doc-button:active {
-    border: 0;
+#oc.selected {
+    background: #FF4800!important;
+}
+#content.selected {
+    background: #B400FF!important;
+}
+#design.selected {
+    background: #0030FF!important;
+}
+.doc-button:focus {
+    box-shadow: 0 0 transparent!important;
 }

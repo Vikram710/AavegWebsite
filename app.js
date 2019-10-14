@@ -51,21 +51,18 @@ app.use('/api/v1', router)
 // =============Routes=============
 
 app.use(studentAuthRoutes)
+app.use(adminAuthRoutes)
+app.use('/inductions', inductionRoutes)
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.redirect(config.APP_BASE_URL + 'inductions')
 })
 
-app.use('/inductions', inductionRoutes)
-
-/*
 app.use(photographyRoutes)
-app.use(adminAuthRoutes)
 app.use(hostelRoutes)
 app.use(eventRoutes)
 app.use(scoreRoutes)
 app.use(miscRoutes)
-*/
 
 app.listen(config.port, () => {
   logger.info(`Server started on port ${config.port}`)
