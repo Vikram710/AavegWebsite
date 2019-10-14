@@ -3,7 +3,11 @@ const logger = require('../../config/winston.js')
 const config = require('../../config/config')
 
 exports.showLogin = (req, res) => {
-  res.render('auth/student/login', { title: 'Login' })
+  if (req.session.rollnumber && req.session.type === 'student') {
+    return res.redirect(config.APP_BASE_URL + 'inductions')
+  } else {
+    res.render('auth/student/login', { title: 'Login' })
+  }
 }
 
 exports.login = async (req, res) => {
