@@ -50,7 +50,6 @@ app.use('/api/v1', router)
 
 // =============Routes=============
 
-
 app.use(studentAuthRoutes)
 
 app.get('/', (req, res) => {
