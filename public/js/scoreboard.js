@@ -6,7 +6,7 @@ const returnImgLink = (hostel) => {
   return logos[hostel]
 }
 
-let logos = {
+const logos = {
   Agate: 'images/agate_logo_bg.png',
   Diamond: 'images/diamond_logo_bg.png',
   Coral: 'images/coral_logo_bg.png',
@@ -18,21 +18,21 @@ $('.mini-hostel-logo').each((index, ele) => {
   $(ele).attr('src', String(returnImgLink(String($(ele).attr('alt')))))
 })
 
-let culturalsData = [
+const culturalsData = [
   data.standings.culturals.Agate,
   data.standings.culturals.Diamond,
   data.standings.culturals.Coral,
   data.standings.culturals.Jade,
   data.standings.culturals.Opal
 ]
-let spectrumData = [
+const spectrumData = [
   data.standings.spectrum.Agate,
   data.standings.spectrum.Diamond,
   data.standings.spectrum.Coral,
   data.standings.spectrum.Jade,
   data.standings.spectrum.Opal
 ]
-let sportsData = [
+const sportsData = [
   data.standings.sports.Agate,
   data.standings.sports.Diamond,
   data.standings.sports.Coral,
@@ -70,7 +70,7 @@ let barChartDataSports = {// eslint-disable-line
 
 }
 
-let barChartData = {
+const barChartData = {
   labels: ['Agate', 'Diamond', 'Coral', 'Jade', 'Opal'],
   datasets: [{
     label: 'Cultural',
@@ -91,7 +91,7 @@ let barChartData = {
 window.onload = chartMaker(barChartData, true)
 
 function chartMaker (dataset, stacked = false) {
-  let ctx = document.getElementById('canvas').getContext('2d')
+  const ctx = document.getElementById('canvas').getContext('2d')
   window.myBar = new Chart(ctx, {// eslint-disable-line
     type: 'bar',
     data: dataset,

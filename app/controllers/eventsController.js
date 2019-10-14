@@ -10,9 +10,9 @@ const scoreboardController = require('../controllers/scoreboardController')
 
 /* Returns venue data, cluster names, cup names all at once for simplification */
 async function getVenueClusterCup () {
-  let venue = venueController.getVenues()
-  let clusterData = Cluster.find({}).exec()
-  let cupData = Cup.find({}).exec()
+  const venue = venueController.getVenues()
+  const clusterData = Cluster.find({}).exec()
+  const cupData = Cup.find({}).exec()
   const [venueData, clusterNames, cupNames] = await Promise.all([venue, clusterData, cupData])
   return {
     venueData,
@@ -224,8 +224,8 @@ exports.showEventsPage = async (req, res) => {
     const eventsByCluster = await Event.aggregate([
       {
         $group: {
-          '_id': '$cluster',
-          'events': { $push: '$$ROOT' }
+          _id: '$cluster',
+          events: { $push: '$$ROOT' }
         }
       }
     ])

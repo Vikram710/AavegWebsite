@@ -1,11 +1,11 @@
-let daysS = document.querySelectorAll('.days')[0]
-let hrsS = document.querySelectorAll('.hours')[0]
-let minsS = document.querySelectorAll('.minutes')[0]
-let secsS = document.querySelectorAll('.seconds')[0]
-let daysS1 = document.querySelectorAll('.days')[1]
-let hrsS1 = document.querySelectorAll('.hours')[1]
-let minsS1 = document.querySelectorAll('.minutes')[1]
-let secsS1 = document.querySelectorAll('.seconds')[1]
+const daysS = document.querySelectorAll('.days')[0]
+const hrsS = document.querySelectorAll('.hours')[0]
+const minsS = document.querySelectorAll('.minutes')[0]
+const secsS = document.querySelectorAll('.seconds')[0]
+const daysS1 = document.querySelectorAll('.days')[1]
+const hrsS1 = document.querySelectorAll('.hours')[1]
+const minsS1 = document.querySelectorAll('.minutes')[1]
+const secsS1 = document.querySelectorAll('.seconds')[1]
 
 function countdown (endDate) {
   let days, hours, minutes, seconds
@@ -36,10 +36,10 @@ function countdown (endDate) {
 
       seconds = parseInt(timeRemaining)
 
-      let stringD = '' + parseInt(days, 10)
-      let stringH = '' + ('0' + hours).slice(-2)
-      let stringM = '' + ('0' + minutes).slice(-2)
-      let stringS = '' + ('0' + seconds).slice(-2)
+      const stringD = '' + parseInt(days, 10)
+      const stringH = '' + ('0' + hours).slice(-2)
+      const stringM = '' + ('0' + minutes).slice(-2)
+      const stringS = '' + ('0' + seconds).slice(-2)
       if (stringD.length >= 2) { daysS.innerHTML = stringD[0] } else { daysS.innerHTML = 0 }
       hrsS.innerHTML = stringH[0]
       minsS.innerHTML = stringM[0]

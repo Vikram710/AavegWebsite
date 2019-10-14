@@ -2,19 +2,19 @@ $(document).ready(function () {
   let prizeCounter = 3
   prizeCounter = prizeCounter + 1
   $(document).on('click', '#addPoints', () => {
-    let newHtml = `${$('#wrapdiv').html()}
+    const newHtml = `${$('#wrapdiv').html()}
     <label for="points${prizeCounter}">Points for Winner  ${prizeCounter}: </label>
     <input type="number" id="points${prizeCounter}" name="points${prizeCounter}">`
     $('#wrapdiv').html(newHtml)
     prizeCounter++
   })
-  let start = $('#startTime')
-  let end = $('#endTime')
+  const start = $('#startTime')
+  const end = $('#endTime')
   start.on('change', function () {
     if (start.value) { end.min = start.value }
   }, false)
   $(document).on('click', '#submitCreate', () => {
-    let points = []
+    const points = []
     points.length = prizeCounter
     for (let i = 1; i <= prizeCounter; i++) {
       if (!$(`#points${i}`).val()) {
@@ -23,17 +23,17 @@ $(document).ready(function () {
       } else { points[i - 1] = $(`#points${i}`).val() }
     }
     const formData = {
-      'name': $('#eventName').val(),
-      'cluster': $('#cluster').val(),
-      'cup': $('#cup').val(),
-      'points': points,
-      'places': prizeCounter,
-      'venue': $('#venue').val(),
-      'description': $('#description').val(),
-      'rules': $('#rules').val(),
-      'date': $('#date').val(),
-      'startTime': $('#startTime').val(),
-      'endTime': $('#endTime').val()
+      name: $('#eventName').val(),
+      cluster: $('#cluster').val(),
+      cup: $('#cup').val(),
+      points: points,
+      places: prizeCounter,
+      venue: $('#venue').val(),
+      description: $('#description').val(),
+      rules: $('#rules').val(),
+      date: $('#date').val(),
+      startTime: $('#startTime').val(),
+      endTime: $('#endTime').val()
     }
     $.ajax({
       url: 'admin/events',
