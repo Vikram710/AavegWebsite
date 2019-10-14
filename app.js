@@ -18,6 +18,7 @@ const hostelRoutes = require('./app/routes/hostel.js')
 const miscRoutes = require('./app/routes/misc')
 const authSetup = require('./app/utils/authSetup')
 const scoreRoutes = require('./app/routes/scoreboard.js')
+const inductionRoutes = require('./app/routes/inductions.js')
 const router = express.Router()
 
 // ==================Middleware================
@@ -52,6 +53,8 @@ app.use('/api/v1', router)
 app.get('/', (req, res) => {
   res.render('timer')
 })
+
+app.use('/inductions', inductionRoutes)
 
 app.use(photographyRoutes)
 app.use(studentAuthRoutes)
