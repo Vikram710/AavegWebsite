@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    Inductions
+  </title>
+  <meta charset="utf-8" />
+  <base href="<%=baseUrl%>">
+  <meta name="theme-color" content="#2c2c54" />
+  <meta name="description" content="Aaveg - NIT, Trichy. A fest like none other" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="icon" type="image/png" href="images/aaveg_glyph_black.png">
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/custom_main.css" />
+  <noscript>
+    <link rel="stylesheet" href="css/noscript.css" />
+  </noscript>
+</head>
+
+<body class="is-preload">
+  <!-- Wrapper -->
+  <div id="wrapper">
+    <!-- Header -->
+    <header id="header" class="alt">
+      <span class="logo"><a href="#"><img src="images/aaveg_glyph_white.png" alt="" height="150px" width="150px" /></a></span>
+      <span class="logo"><a href="#"><img src="images/wordmark_white.png" alt="" width="150px" /></a></span>
+      </p>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+      <ul>
+        <!-- <li><a href="schedule">Schedule</a></li> -->
+        <% if(typeof adminUser!=='undefined' && typeof adminUser.username!=='undefined') { %>
+        <li><a href="logout">
+            Logout :
+            <%= adminUser.username %></a></li>
+        <% }else if(typeof rollnumber!=='undefined'){%>
+        <li><a href="studentLogout">
+            Logout :
+            <%= rollnumber %></a></li>
+        <%}%>
+      </ul>
+    </nav>
+
+    <div id="mini-nav" class="">
+      <i class="icon fa-bars"></i> MENU
+    </div>
+
+    <div id="mini-nav-wrapper" class="modal hidden">
+      <nav id="nav-mobile" class="">
+        <div id="nav-mob-close" class="fa-times icon"></div>
+        <ul>
+          <!-- <li><a href="schedule">Schedule</a></li> -->
+          <% if(typeof adminUser!=='undefined' && typeof adminUser.username!=='undefined') { %>
+          <li><a href="logout">
+              Logout :
+              <%= adminUser.username %></a></li>
+          <% }else if(typeof rollnumber!=='undefined'){%>
+          <li><a href="studentLogout">
+              Logout :
+              <%= rollnumber %></a></li>
+          <%}%>
+        </ul>
+      </nav>
+    </div>
+
+
+    <!-- Main -->
+    <div id="main">
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <section>
+        <h2>Reach Us</h2>
+        <ul class="icons">
+          <li>
+            <a href="https://www.instagram.com/aaveg.nitt/" class="icon fa-instagram alt"><span class="label">Twitter</span></a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/aaveg.nitt" class="icon fa-facebook alt"><span class="label">Facebook</span></a>
+          </li>
+          <li>
+            <a href="https://medium.com/aaveg-blog" class="icon fa-medium alt"><span class="label">Medium</span></a>
+          </li>
+          <li>
+            <a href="https://be.net/aavegdesign" class="icon fa-behance alt"><span class="label">Behance</span></a>
+          </li>
+          <li>
+            <a href="https://linktr.ee/aaveg.nitt" class="icon fa-external-link alt"><span class="label">Behance</span></a>
+          </li>
+        </ul>
+        <ul class="actions">
+          <li><a href="contact" class="button JPO_open">Contact Us</a></li>
+        </ul>
+      </section>
+      <p class="copyright">
+        &copy; Aaveg 2020. Made with &hearts; by Aaveg Web Team & Design Team.
+      </p>
+    </footer>
+  </div>
+  <div id="JPO">
+    <div>
+      <div id="contactDiv">
+        <!--   
+        <p>Chairperson : Savita - <a href="tel:+917339367931"> 7339367931</a></p>
+        <p>Head, OC : Deeraj - <a href="tel:+917339367931">9600852718
+          </a></p>
+        <p>Head, OC : Evlin - <a href="tel:+918129052491">8129052491 </a></p>
+        <p>Head, Design : Yagnesh - <a href="tel:+917358778423">7358778423 </a></p>
+        <p>Head, Content : Ipsita - <a href="tel:+918309974369">8309974369 </a></p>
+        <p>Head, Marketing : Venkat - <a href="tel:+919944729529">9944729529 </a></p>
+        <p>Treasurer : Jaypal - <a href="tel:+919566760500">9566760500 </a></p>
+        <p>WebOps : Subash - <a href="tel:+919791058966">9791058966 </a></p>
+        -->
+      </div>
+    </div>
+    <button class="JPO_close">Close</button>
+  </div>
+  <!-- Scripts -->
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.scrollex.min.js"></script>
+  <script src="js/jquery.scrolly.min.js"></script>
+  <script src="js/browser.min.js"></script>
+  <script src="js/breakpoints.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/vast-engineering/jquery-popup-overlay@2/jquery.popupoverlay.min.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/custom_main.js"></script>
+</body>
+
+</html>
