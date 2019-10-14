@@ -43,6 +43,14 @@ exports.checkStudentLogin = (req, res, next) => {
   }
 }
 
+exports.checkFirstYear = (req, res, next) => {
+  if (req.session.rollnumber[5] == '9') {
+    next()
+  } else {
+    res.redirect(config.APP_BASE_URL + 'studentLogout')
+  }
+}
+
 exports.logout = (req, res) => {
   req.logout()
   req.session.destroy()
