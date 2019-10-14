@@ -4,22 +4,27 @@
 button{
     background:black;
 }
-div.hameed{
-    background:black;
-    width:200px;
-    height:200px;
-}
 #doc-nav {
     display: flex;
+}
+#doc-nav.normal{
+    flex-direction: column;
+}
+div.hameed{
+    color:white;
 }
 .doc-button {
     flex-grow: 1;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    background:white!important;
+    color:black;
+
 }
 .doc-button.selected {
     background: red!important;
     color: white;
+    font-weight: 700;
 }
 .doc-button:active {
     border: 0;

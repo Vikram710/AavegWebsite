@@ -1,5 +1,6 @@
-let doc = function (event) {
+function doc (event) {
   document.getElementById('hameed').style.display = 'none'
+  document.getElementById('doc-nav').classList.remove('normal')
   if (event.target.id === 'oc') {
     document.getElementById('oc').classList.add('selected')
     document.getElementById('content').classList.remove('selected')
