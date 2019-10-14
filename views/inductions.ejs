@@ -3,7 +3,7 @@
 
 <head>
   <title>
-    Inductions
+    <%= title%>
   </title>
   <meta charset="utf-8" />
   <base href="<%=baseUrl%>">
@@ -67,8 +67,9 @@
 
     <!-- Main -->
     <div id="main">
-      <div id="hameed" class="hameed">hey</div>
-      <div id="doc-nav">
+      <div id="hameed" class="hameed">Hey <span style="color:red"><%= rollnumber%> </span>,
+        Thank you for considering Aaveg. We're sure you'll find yourself a place in here.Click one of the below buttons to fill the form.</div>
+      <div id="doc-nav" class="normal">
         <button class="doc-button" id="oc" onclick="doc(event)">OC</button>
         <button class="doc-button" id="content" onclick="doc(event)">Content</button>
         <button class="doc-button" id="design" onclick="doc(event)">Design</button>

@@ -2,5 +2,5 @@
 // const config = require('../../config/config')
 
 exports.show = (req, res) => {
-  res.render('inductions', { title: 'inductions' })
+  res.render('inductions', { title: 'inductions', rollnumber: req.session.rollnumber })
 }
