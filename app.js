@@ -12,12 +12,13 @@ const logger = require('./config/winston.js')
 const config = require('./config/config.js')
 const adminAuthRoutes = require('./app/routes/adminAuth.js')
 const studentAuthRoutes = require('./app/routes/studentAuth.js')
-const photographyRoutes = require('./app/routes/photography')
-const eventRoutes = require('./app/routes/events')
+// const photographyRoutes = require('./app/routes/photography')
+// const eventRoutes = require('./app/routes/events')
 const hostelRoutes = require('./app/routes/hostel.js')
-const miscRoutes = require('./app/routes/misc')
+// const miscRoutes = require('./app/routes/misc')
 const authSetup = require('./app/utils/authSetup')
-const scoreRoutes = require('./app/routes/scoreboard.js')
+// const scoreRoutes = require('./app/routes/scoreboard.js')
+const tshirtRoutes = require('./app/routes/tshirtReg.js')
 const router = express.Router()
 
 // ==================Middleware================
@@ -50,16 +51,21 @@ app.use('/api/v1', router)
 // =============Routes=============
 
 app.get('/', (req, res) => {
-  res.render('timer')
+  res.redirect('/tshirt')
 })
 
-app.use(photographyRoutes)
+app.use(tshirtRoutes)
+// app.use(photographyRoutes)
 app.use(studentAuthRoutes)
 app.use(adminAuthRoutes)
 app.use(hostelRoutes)
-app.use(eventRoutes)
-app.use(scoreRoutes)
-app.use(miscRoutes)
+// app.use(eventRoutes)
+// app.use(scoreRoutes)
+// app.use(miscRoutes)
+
+app.get('*', (req, res) => {
+  res.render('error', { error: 'Page not found', title: '404' })
+})
 
 app.listen(config.port, () => {
   logger.info(`Server started on port ${config.port}`)

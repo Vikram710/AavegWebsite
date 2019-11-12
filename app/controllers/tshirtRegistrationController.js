@@ -27,7 +27,8 @@ exports.validate = [
       }
     })
     .custom(rollno => {
-      if (rollno.toString()[5] !== '8' && rollno !== '102117058') {
+      const exRollNos = []
+      if (rollno.toString()[5] !== '8' && !exRollNos.includes(rollno)) {
         throw new Error('Aaveg is only for first years. Thanks for remembering aaveg and taking time out to try this :p')
       } else {
         return true
@@ -38,8 +39,26 @@ exports.validate = [
     .custom(async (hostel) => {
       const hostelData = await hostelController.getHostels()
       const hostelNames = hostelData.map(hostel => hostel.name)
+      hostelNames.push('Day Scholar')
       if (!hostelNames.includes(hostel)) {
         throw new Error('Hostel data incorrect')
+      } else {
+        return true
+      }
+    }),
+  check('phone')
+    .exists().withMessage('Phone Number missing')
+    .isMobilePhone('en-IN').withMessage('Invalid Phone Number'),
+  check('name')
+    .exists().withMessage('Name missing'),
+  check('requirement')
+    .exists().withMessage('Requirement missing'),
+  check('size')
+    .exists().withMessage('Size missing')
+    .custom(size => {
+      const availableSizes = ['S', 'M', 'L', 'XL', 'XXL']
+      if (!availableSizes.includes(size)) {
+        throw new Error('Size incorrect')
       } else {
         return true
       }
@@ -64,8 +83,10 @@ exports.savetTshirtData = async (req, res) => {
     logger.info(`Registration done for ${req.session.rollnumber}`)
     const newTshirt = new TshirtDetail()
     newTshirt.hostel = req.body.hostel
-    newTshirt.size = req.body.size
+    newTshirt.size = req.body.requirement === 'foodcard' ? '' : req.body.size
     newTshirt.rollNumber = req.session.rollnumber
+    newTshirt.phone = req.body.phone
+    newTshirt.name = req.body.name
     newTshirt.save().then(() => {
       res.redirect(config.APP_BASE_URL + 'tshirt')
     })
@@ -75,7 +96,7 @@ exports.savetTshirtData = async (req, res) => {
 exports.getExcel = async (req, res) => {
   try {
     const tshirtData = await TshirtDetail.find({}).exec()
-    const fields = ['rollNumber', 'hostel', 'size']
+    const fields = ['rollNumber', 'name', 'phone', 'hostel', 'size']
     const opts = { fields }
     const data = json2csv(tshirtData, opts)
     res.attachment('tshirt.csv')

@@ -1,9 +1,9 @@
-#formWrapper input[type=number]::-webkit-inner-spin-button, 
-#formWrapper input[type=number]::-webkit-outer-spin-button { 
+#formWrapper input[type=number]::-webkit-inner-spin-button,
+#formWrapper input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 #formWrapper{
@@ -50,6 +50,7 @@ label a{
 
 @media screen and (max-width: 736px) {
   .requirementSelector{
+    margin-left: 12px;
     justify-content: flex-start;
   }
 }
