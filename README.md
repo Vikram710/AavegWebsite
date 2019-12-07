@@ -58,3 +58,10 @@ standard --fix
 
 /api/events for event details
 /api/scoreboard for score details
+
+## Deploy
+
+To deploy the application run ```docker-compose up -d```.
+Initial build may take some time.
+Once container is up, ```docker-compose exec -it <appContinerId> /bin/bash```.
+Inside the container run ```seed```
