@@ -5,7 +5,7 @@ services:
   aaveg20: #name of your service
     build: ./ # specify the directory of the Dockerfile
     ports:
-      - "3000:3000" #specify ports forwarding
+      - "6677:3000" #specify ports forwarding
     links:
       - database # link this service to the database service
     volumes:

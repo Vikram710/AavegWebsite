@@ -1,14 +1,16 @@
 FROM node:12
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/
 
-COPY package.json /usr/src/app
+COPY package.json .
 
-COPY package-lock.json /usr/src/app
+#COPY package-lock.json /usr/src/app
 
 RUN npm install
 
-COPY . /usr/src/app
+WORKDIR /usr/src/app/
+
+COPY . .
 
 RUN npm install -g standard
 
@@ -21,3 +23,4 @@ RUN mkdir logs && touch logs/erros.log logs/warnings.log
 EXPOSE 3000
 
 CMD ["node", "app.js"]
+
