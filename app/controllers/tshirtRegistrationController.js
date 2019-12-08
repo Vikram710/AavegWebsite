@@ -86,6 +86,7 @@ exports.savetTshirtData = async (req, res) => {
     logger.error({ user: req.session.rollnumber, errors: errorMessages })
     const data = req.body
     data.hostels = hostelNames
+    data.depts = config.deptList
     res.render('tshirt/tshirtReg', {
       data: data,
       error: errorMessages,
