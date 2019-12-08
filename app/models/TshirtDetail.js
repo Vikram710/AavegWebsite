@@ -5,7 +5,8 @@ const tshirtDetailSchema = new mongoose.Schema({
   name: 'string',
   phone: 'number',
   hostel: 'string',
-  size: 'string'
+  size: 'string',
+  dept: 'string'
 })
 
 module.exports = mongoose.model('TshirtDetail', tshirtDetailSchema)

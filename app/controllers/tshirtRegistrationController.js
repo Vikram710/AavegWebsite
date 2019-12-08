@@ -8,10 +8,12 @@ const json2csv = require('json2csv').parse
 exports.displayTshirtForm = async (req, res) => {
   const hostelData = await hostelController.getHostels()
   const hostelNames = hostelData.map(hostel => hostel.name)
+  const dept = config.deptList
   res.render('tshirt/tshirtReg', {
     data: {
       rollno: req.session.rollnumber,
-      hostels: hostelNames
+      hostels: hostelNames,
+      depts: dept
     },
     title: 'Tshirt'
   })
@@ -42,6 +44,16 @@ exports.validate = [
       hostelNames.push('Day Scholar')
       if (!hostelNames.includes(hostel)) {
         throw new Error('Hostel data incorrect')
+      } else {
+        return true
+      }
+    }),
+  check('dept')
+    .exists().withMessage('dept name missing')
+    .custom(async (d) => {
+      const dept = config.deptList
+      if (!dept.includes(d)) {
+        throw new Error('Department incorrect')
       } else {
         return true
       }
@@ -83,6 +95,8 @@ exports.savetTshirtData = async (req, res) => {
     logger.info(`Registration done for ${req.session.rollnumber}`)
     const newTshirt = new TshirtDetail()
     newTshirt.hostel = req.body.hostel
+    newTshirt.dept = req.body.dept
+    console.log(newTshirt.dept)
     newTshirt.size = req.body.requirement === 'foodcard' ? '' : req.body.size
     newTshirt.rollNumber = req.session.rollnumber
     newTshirt.phone = req.body.phone
@@ -96,7 +110,7 @@ exports.savetTshirtData = async (req, res) => {
 exports.getExcel = async (req, res) => {
   try {
     const tshirtData = await TshirtDetail.find({}).exec()
-    const fields = ['rollNumber', 'name', 'phone', 'hostel', 'size']
+    const fields = ['rollNumber', 'name', 'phone', 'hostel', 'size', 'dept']
     const opts = { fields }
     const data = json2csv(tshirtData, opts)
     res.attachment('tshirt.csv')
