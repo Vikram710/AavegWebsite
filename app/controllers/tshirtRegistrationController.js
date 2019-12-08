@@ -27,7 +27,7 @@ exports.validate = [
       }
     })
     .custom(rollno => {
-      const exRollNos = []
+      const exRollNos = config.rollNoList
       if (rollno.toString()[5] !== '9' && !exRollNos.includes(rollno)) {
         throw new Error('Aaveg is only for first years. Thanks for remembering aaveg and taking time out to try this :p')
       } else {
