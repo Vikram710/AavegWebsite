@@ -63,8 +63,8 @@ exports.validate = [
     .isMobilePhone('en-IN').withMessage('Invalid Phone Number'),
   check('name')
     .exists().withMessage('Name missing'),
-  check('requirement')
-    .exists().withMessage('Requirement missing'),
+  check('stype')
+    .exists().withMessage('Student type missing'),
   check('size')
     .exists().withMessage('Size missing')
     .custom(size => {
@@ -101,6 +101,7 @@ exports.savetTshirtData = async (req, res) => {
     newTshirt.rollNumber = req.session.rollnumber
     newTshirt.phone = req.body.phone
     newTshirt.name = req.body.name
+    newTshirt.isDayScholar = req.body.stype === 'ds'
     newTshirt.save().then(() => {
       res.redirect(config.APP_BASE_URL + 'tshirt')
     })

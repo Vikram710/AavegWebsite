@@ -39,17 +39,30 @@ label a{
   display: flex;
 }
 
+.stypeSelector{
+  justify-content: center;
+  display: flex;
+}
+
 .gtr-uniform{
   width: 100%;
   margin: 0;
 }
 
-.hidden{
+#ds-info {
+  text-align: center;
+}
+
+.hidden {
   display: none;
 }
 
 @media screen and (max-width: 736px) {
   .requirementSelector{
+    margin-left: 12px;
+    justify-content: flex-start;
+  }
+  .stypeSelector{
     margin-left: 12px;
     justify-content: flex-start;
   }

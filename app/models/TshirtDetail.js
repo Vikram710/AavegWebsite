@@ -6,7 +6,8 @@ const tshirtDetailSchema = new mongoose.Schema({
   phone: 'number',
   hostel: 'string',
   size: 'string',
-  dept: 'string'
+  dept: 'string',
+  isDayScholar: 'boolean'
 })
 
 module.exports = mongoose.model('TshirtDetail', tshirtDetailSchema)
