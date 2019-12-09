@@ -1,11 +1,14 @@
 const mongoose = require('mongoose')
 const logger = require('../../config/winston.js')
 const Event = require('../models/Event.js')
+const Admin = require('../models/Admin.js')
 const Cup = require('../models/Cup.js')
 const Cluster = require('../models/Cluster.js')
 const venueController = require('./venueController.js')
 const { check, validationResult } = require('express-validator/check')
 const moment = require('moment')
+const jwt = require('jsonwebtoken')
+const config = require('../../config/config')
 const scoreboardController = require('../controllers/scoreboardController')
 
 /* Returns venue data, cluster names, cup names all at once for simplification */
@@ -199,26 +202,6 @@ exports.editEventData = async (req, res) => {
   }
 }
 
-exports.getEvents = async (req, res) => {
-  try {
-    const eventsData = await Event.find({}).populate('venue').exec()
-    return res.send(eventsData)
-  } catch (e) {
-    logger.error(e)
-    return res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
-  }
-}
-
-exports.getEventData = async (req, res) => {
-  try {
-    const eventData = await Event.find({ _id: req.params.id }).exec()
-    return res.json(eventData)
-  } catch (e) {
-    logger.error(e)
-    return res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
-  }
-}
-
 exports.showEventsPage = async (req, res) => {
   try {
     const eventsByCluster = await Event.aggregate([
@@ -251,5 +234,74 @@ exports.showEvent = async (req, res) => {
     }
   } catch (e) {
     return res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
+  }
+}
+
+//API 
+
+exports.validateJWT = (req, res, next) => {
+  const errors = validationResult(req).array()
+  if (errors.length) {
+    const errorMessages = errors.map(error => error.msg)
+    logger.error(errorMessages)
+
+    res.status(400)
+    res.send({ message: 'Bad Request', error: errorMessages })
+    return false
+  }
+
+  jwt.verify(req.query.APIToken, config.apiSecret, function (err, decoded) {
+    if (err) {
+      logger.error(err)
+    }
+    console.log(decoded)
+    if (typeof decoded !== 'undefined') {
+      Admin.findOne({ username: decoded.username }, function (err, admin) {
+        if (!err && !!admin) {
+          next()
+        }
+      }) 
+    } 
+    else {
+      res.status(401)
+      res.send({ message: 'Invalid API Token' })
+    }
+  })
+}
+
+exports.apiEvents = async (req, res) => {
+  try {
+    const eventsByCluster = await Event.aggregate([
+      {
+        $group: {
+          _id: '$cluster',
+          events: { $push: '$$ROOT' }
+        }
+      }
+    ])
+    res.json({ title: 'Events', eventsData: eventsByCluster })
+  } catch (e) {
+    res.status(500).json({ title: 'Error', error: 'Internal server error' })
+  }
+}
+
+exports.apiEventData = async (req, res) => {
+  try {
+    const eventData = await Event.find({ _id: req.params.id }).exec()
+    return res.json(eventData)
+  } catch (e) {
+    logger.error(e)
+    return res.json({ title: 'Error', error: 'Internal server error' })
+  }
+}
+
+exports.apiDeleteEventData = async (req, res) => {
+  try {
+    await Event.findByIdAndDelete(req.params.id).exec()
+    logger.info(`Event ${req.params.id} deleted by ${req.body.username}`)
+    res.sendStatus(200)
+  } catch (err) {
+    logger.error(err)
+    res.sendStatus(500)
   }
 }
