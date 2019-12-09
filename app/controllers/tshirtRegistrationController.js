@@ -97,7 +97,7 @@ exports.savetTshirtData = async (req, res) => {
     const newTshirt = new TshirtDetail()
     newTshirt.hostel = req.body.hostel
     newTshirt.dept = req.body.dept
-    newTshirt.size = req.body.requirement === 'foodcard' ? '' : req.body.size
+    newTshirt.size = (req.body.stype !== 'ds' && req.body.requirement === 'foodcard') ? '' : req.body.size
     newTshirt.rollNumber = req.session.rollnumber
     newTshirt.phone = req.body.phone
     newTshirt.name = req.body.name
