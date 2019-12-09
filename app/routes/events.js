@@ -10,9 +10,11 @@ router.put('/admin/events/:id', eventsController.validate, eventsController.edit
 
 router.get('/events', eventsController.showEventsPage)
 router.get('/events/:id', eventsController.showEvent)
-//API
+// API
 router.get('/api/events', eventsController.apiEvents)
-router.get('/api/events/:id', eventsController.validateJWT,eventsController.apiEventData)
-router.delete('/api/events/:id', eventsController.apiDeleteEventData)
+router.get('/api/events/:id', eventsController.apiEventData)
+router.post('/api/events/create', eventsController.validateJWT, eventsController.apiCreateEvent)
+router.put('/api/events/edit/:id/', eventsController.validateJWT, eventsController.apiEditEvent)
+router.delete('/api/events/:id', eventsController.validateJWT, eventsController.apiDeleteEventData)
 
 module.exports = router

@@ -237,7 +237,7 @@ exports.showEvent = async (req, res) => {
   }
 }
 
-//API 
+// API
 
 exports.validateJWT = (req, res, next) => {
   const errors = validationResult(req).array()
@@ -258,11 +258,11 @@ exports.validateJWT = (req, res, next) => {
     if (typeof decoded !== 'undefined') {
       Admin.findOne({ username: decoded.username }, function (err, admin) {
         if (!err && !!admin) {
+          req.adminuser = decoded.username
           next()
         }
-      }) 
-    } 
-    else {
+      })
+    } else {
       res.status(401)
       res.send({ message: 'Invalid API Token' })
     }
@@ -303,5 +303,80 @@ exports.apiDeleteEventData = async (req, res) => {
   } catch (err) {
     logger.error(err)
     res.sendStatus(500)
+  }
+}
+
+exports.apiCreateEvent = async (req, res) => {
+  const errors = validationResult(req).array()
+  const errorMessages = errors.map(error => error.msg)
+  logger.error({ errors: errorMessages })
+  const response = {}
+  if (errors.length) {
+    response.message = 'error'
+    response.error = errorMessages
+    res.json(response)
+  } else {
+    try {
+      const { name, cluster, cup, description, rules, date, startTime, endTime, points, venue, places } = req.body
+      const newEvent = await Event.create({
+        name,
+        cluster,
+        cup,
+        description,
+        rules,
+        date,
+        startTime,
+        endTime,
+        points,
+        venue,
+        places
+      })
+      console.log(req.adminuser)
+      logger.info(`Event ${newEvent.name} has been created by ${req.adminuser}`)
+      response.message = `Event ${newEvent.name} has been created by ${req.adminuser}`
+      res.json(response)
+    } catch (err) {
+      logger.error(err)
+      res.json({ title: 'Error', error: 'Internal server error' })
+    }
+  }
+}
+
+exports.apiEditEvent = async (req, res) => {
+  const errors = validationResult(req).array()
+  const errorMessages = errors.map(error => error.msg)
+  logger.error({ errors: errorMessages })
+  const response = {}
+  if (errors.length) {
+    response.message = 'error'
+    response.error = errorMessages
+    res.json(response)
+  } else {
+    try {
+      const eventToEdit = await Event.findById(req.params.id)
+      const {
+        name, cluster, cup, description, rules, venue, date, startTime, endTime, places, points
+      } = req.body
+      Object.assign(eventToEdit, {
+        name,
+        cluster,
+        cup,
+        description,
+        rules,
+        venue,
+        date,
+        startTime,
+        endTime,
+        places,
+        points
+      })
+      await eventToEdit.save()
+      logger.info(`Event ${eventToEdit.name} has been Edited by ${req.adminuser}`)
+      response.message = `Event ${eventToEdit.name} has been Edited by ${req.adminuser}`
+      res.json(response)
+    } catch (err) {
+      logger.error(err)
+      res.json({ title: 'Error', error: 'Internal server error' })
+    }
   }
 }
