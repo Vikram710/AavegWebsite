@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
 const studentSchema = new mongoose.Schema({
-  username: String
+  rollnumber: String,
+  hostel: String
 })
 
-module.exports = mongoose.model('Admin', studentSchema)
+module.exports = mongoose.model('Student', studentSchema)
