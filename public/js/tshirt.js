@@ -16,12 +16,16 @@ $('.stypeSelector').on('change', (e) => {
     )
     $('.requirementSelector').removeClass('hidden')
     $('#ds-info').addClass('hidden')
+    if ($('#requirement-both').prop('checked') === false) {
+      $('#tshirt-selector').addClass('hidden')
+    }
   } else {
     $('#hostel').html(
       '<option value="">Please select</option><option value="Cobalt">Cobalt</option><option value="Opal">Opal</option>'
     )
     $('.requirementSelector').addClass('hidden')
     $('#ds-info').removeClass('hidden')
+    $('#tshirt-selector').removeClass('hidden')
   }
   $('#hostelSelector').removeClass('hidden')
 })
