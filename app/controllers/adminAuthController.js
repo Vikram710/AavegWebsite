@@ -82,20 +82,21 @@ exports.getAdminUsernames = async () => {
 // API
 
 exports.validateJWT = (req, res, next) => {
-  if (!Object.prototype.hasOwnProperty.call(req.body, "APIToken")) {
-    return res.send({ message: 'Missing API Token' })
+  if (!Object.prototype.hasOwnProperty.call(req.body, 'APIToken')) {
+    return res.status(400).send({ message: 'Missing API Token' })
   }
   jwt.verify(req.body.APIToken, config.apiSecret, function (err, decoded) {
     if (err) {
       logger.error(err)
     }
-    console.log(decoded)
     if (typeof decoded !== 'undefined') {
       Admin.findOne({ username: decoded.username }, function (err, admin) {
         if (!err && !!admin) {
           req.adminuser = decoded.username
-          console.log('d')
           next()
+        } else {
+          logger.error(err)
+          res.status(500).send({ message: 'Server Error' })
         }
       })
     } else {
