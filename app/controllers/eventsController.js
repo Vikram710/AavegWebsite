@@ -265,7 +265,7 @@ exports.apiEventData = async (req, res) => {
 exports.apiDeleteEventData = async (req, res) => {
   try {
     await Event.findByIdAndDelete(req.params.id).exec()
-    logger.info(`Event ${req.params.id} deleted by ${req.body.username}`)
+    logger.info(`Event ${req.params.id} deleted by ${req.adminuser}`)
     res.sendStatus(200)
   } catch (err) {
     logger.error(err)
