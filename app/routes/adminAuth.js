@@ -9,7 +9,7 @@ router.get('/logout', adminAuthController.checkAdminLogin, adminAuthController.l
 router.post('/register', adminAuthController.checkAdminAccess, adminAuthController.register)
 
 // API
-router.post('/api/login', adminAuthController.apiLogin)
+router.post('/api/login', adminAuthController.apiAuthenticate,adminAuthController.apilogin)
 router.post('/api/register', adminAuthController.apiCheckAdminAccess, adminAuthController.apiRegister)
 
 module.exports = router

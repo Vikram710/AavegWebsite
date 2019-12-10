@@ -110,54 +110,17 @@ exports.apiRegister = (req, res) => {
   })
 }
 
-exports.apiLogin = async (req, res) => {
-  const errors = validationResult(req).array()
-  if (errors.length) {
-    logger.error(errors.map(error => error.msg))
-
-    res.status(400)
-    res.send({ message: 'Bad Request' })
-    return false
-  }
-
-  const imapConfig = {
-    imap: {
-      user: req.body.username,
-      password: req.body.password,
-      host: '203.129.195.133',
-      port: 143,
-      tls: false,
-      authTimeout: 30000
-    }
-  }
-  imaps.connect(imapConfig).then(async connection => {
-    const response = {}
-    // Find User ID
-    Admin.findOne({ username: req.body.username }, function (err, admin) {
-      if (err || !admin) {
-        logger.error(err)
-        res.status(400)
-        response.message = 'Not admin'
-        res.send(response)
-      } else {
-        response.username = admin.username
-
-        response.APIToken = jwt.sign({ username: response.username, time: Date.now() }, config.apiSecret)
-
-        logger.info(`Admin ${req.body.username} logged in using API`)
-
-        res.status(200)
-        res.send(response)
-      }
-    })
-  }).catch(err => {
-    logger.error(err)
-
-    const response = {
-      message: 'Invalid Credentials'
-    }
-
-    res.status(401)
-    res.send(response)
+exports.apiAuthenticate = passport.authenticate('local',
+  {
+    failureRedierct: 'Put a error response please'
   })
+
+exports.apilogin = (req, res) => {
+  let response ={}
+  response.username = req.body.username
+
+  response.APIToken = jwt.sign({ username: response.username, time: Date.now() }, config.apiSecret)
+
+  logger.info(`Admin ${req.body.username} logged in using API`)
+  res.send(response)
 }
