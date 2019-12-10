@@ -1,11 +1,9 @@
 const passport = require('passport')
 const Admin = require('../models/Admin.js')
 const jwt = require('jsonwebtoken')
-const { validationResult } = require('express-validator/check')
 const accessList = require('../../config/adminAccess.js')
 const logger = require('../../config/winston.js')
 const config = require('../../config/config')
-const imaps = require('imap-simple')
 
 exports.showLogin = (req, res) => {
   res.render('auth/admin/login', { title: 'Login' })
@@ -83,6 +81,30 @@ exports.getAdminUsernames = async () => {
 
 // API
 
+exports.validateJWT = (req, res, next) => {
+  if (!Object.prototype.hasOwnProperty.call(req.body, "APIToken")) {
+    return res.send({ message: 'Missing API Token' })
+  }
+  jwt.verify(req.body.APIToken, config.apiSecret, function (err, decoded) {
+    if (err) {
+      logger.error(err)
+    }
+    console.log(decoded)
+    if (typeof decoded !== 'undefined') {
+      Admin.findOne({ username: decoded.username }, function (err, admin) {
+        if (!err && !!admin) {
+          req.adminuser = decoded.username
+          console.log('d')
+          next()
+        }
+      })
+    } else {
+      res.status(401)
+      res.send({ message: 'Invalid API Token' })
+    }
+  })
+}
+
 // Check if the admin should be allowed to register
 exports.apiCheckAdminAccess = (req, res, next) => {
   if (Object.keys(accessList).includes(req.body.username)) {
@@ -112,15 +134,20 @@ exports.apiRegister = (req, res) => {
 
 exports.apiAuthenticate = passport.authenticate('local',
   {
-    failureRedierct: 'Put a error response please'
+    failureRedierct: '/apiLoginError'
   })
 
 exports.apilogin = (req, res) => {
-  let response ={}
+  const response = {}
   response.username = req.body.username
 
   response.APIToken = jwt.sign({ username: response.username, time: Date.now() }, config.apiSecret)
 
   logger.info(`Admin ${req.body.username} logged in using API`)
   res.send(response)
+}
+exports.apiLoginError = (req, res) => {
+  const response = { }
+  response.message = 'NOT WORKING'
+  res.json(response)
 }

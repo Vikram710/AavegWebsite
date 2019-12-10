@@ -1,14 +1,11 @@
 const mongoose = require('mongoose')
 const logger = require('../../config/winston.js')
 const Event = require('../models/Event.js')
-const Admin = require('../models/Admin.js')
 const Cup = require('../models/Cup.js')
 const Cluster = require('../models/Cluster.js')
 const venueController = require('./venueController.js')
 const { check, validationResult } = require('express-validator/check')
 const moment = require('moment')
-const jwt = require('jsonwebtoken')
-const config = require('../../config/config')
 const scoreboardController = require('../controllers/scoreboardController')
 
 /* Returns venue data, cluster names, cup names all at once for simplification */
@@ -238,36 +235,6 @@ exports.showEvent = async (req, res) => {
 }
 
 // API
-
-exports.validateJWT = (req, res, next) => {
-  const errors = validationResult(req).array()
-  if (errors.length) {
-    const errorMessages = errors.map(error => error.msg)
-    logger.error(errorMessages)
-
-    res.status(400)
-    res.send({ message: 'Bad Request', error: errorMessages })
-    return false
-  }
-
-  jwt.verify(req.query.APIToken, config.apiSecret, function (err, decoded) {
-    if (err) {
-      logger.error(err)
-    }
-    console.log(decoded)
-    if (typeof decoded !== 'undefined') {
-      Admin.findOne({ username: decoded.username }, function (err, admin) {
-        if (!err && !!admin) {
-          req.adminuser = decoded.username
-          next()
-        }
-      })
-    } else {
-      res.status(401)
-      res.send({ message: 'Invalid API Token' })
-    }
-  })
-}
 
 exports.apiEvents = async (req, res) => {
   try {
