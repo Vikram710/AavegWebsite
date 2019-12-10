@@ -109,7 +109,7 @@ exports.apiLogin = async (req, res) => {
   }
 
   imaps.connect(imapConfig).then(async connection => {
-    let response = {
+    const response = {
       message: 'Login Successful'
     }
 

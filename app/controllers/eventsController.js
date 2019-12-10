@@ -199,26 +199,6 @@ exports.editEventData = async (req, res) => {
   }
 }
 
-exports.getEvents = async (req, res) => {
-  try {
-    const eventsData = await Event.find({}).populate('venue').exec()
-    return res.send(eventsData)
-  } catch (e) {
-    logger.error(e)
-    return res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
-  }
-}
-
-exports.getEventData = async (req, res) => {
-  try {
-    const eventData = await Event.find({ _id: req.params.id }).exec()
-    return res.json(eventData)
-  } catch (e) {
-    logger.error(e)
-    return res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
-  }
-}
-
 exports.showEventsPage = async (req, res) => {
   try {
     const eventsByCluster = await Event.aggregate([
@@ -251,5 +231,119 @@ exports.showEvent = async (req, res) => {
     }
   } catch (e) {
     return res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
+  }
+}
+
+// API
+
+exports.apiEvents = async (req, res) => {
+  try {
+    const eventsByCluster = await Event.aggregate([
+      {
+        $group: {
+          _id: '$cluster',
+          events: { $push: '$$ROOT' }
+        }
+      }
+    ])
+    res.json({ title: 'Events', eventsData: eventsByCluster })
+  } catch (e) {
+    res.status(500).json({ title: 'Error', error: 'Internal server error' })
+  }
+}
+
+exports.apiEventData = async (req, res) => {
+  try {
+    const eventData = await Event.find({ _id: req.params.id }).exec()
+    return res.json(eventData)
+  } catch (e) {
+    logger.error(e)
+    return res.json({ title: 'Error', error: 'Internal server error' })
+  }
+}
+
+exports.apiDeleteEventData = async (req, res) => {
+  try {
+    await Event.findByIdAndDelete(req.params.id).exec()
+    logger.info(`Event ${req.params.id} deleted by ${req.body.username}`)
+    res.sendStatus(200)
+  } catch (err) {
+    logger.error(err)
+    res.sendStatus(500)
+  }
+}
+
+exports.apiCreateEvent = async (req, res) => {
+  const errors = validationResult(req).array()
+  const errorMessages = errors.map(error => error.msg)
+  logger.error({ errors: errorMessages })
+  const response = {}
+  if (errors.length) {
+    response.message = 'error'
+    response.error = errorMessages
+    res.json(response)
+  } else {
+    try {
+      const { name, cluster, cup, description, rules, date, startTime, endTime, points, venue, places } = req.body
+      const newEvent = await Event.create({
+        name,
+        cluster,
+        cup,
+        description,
+        rules,
+        date,
+        startTime,
+        endTime,
+        points,
+        venue,
+        places
+      })
+      console.log(req.adminuser)
+      logger.info(`Event ${newEvent.name} has been created by ${req.adminuser}`)
+      response.message = `Event ${newEvent.name} has been created by ${req.adminuser}`
+      res.json(response)
+    } catch (err) {
+      logger.error(err)
+      res.json({ title: 'Error', error: 'Internal server error' })
+    }
+  }
+}
+
+exports.apiEditEvent = async (req, res) => {
+  const errors = validationResult(req).array()
+  const errorMessages = errors.map(error => error.msg)
+  logger.error({ errors: errorMessages })
+  const response = {}
+  if (errors.length) {
+    response.message = 'error'
+    response.error = errorMessages
+    res.json(response)
+  } else {
+    try {
+      const eventToEdit = await Event.findById(req.params.id)
+      const {
+        name, cluster, cup, description, rules, venue, date, startTime, endTime, places, points
+      } = req.body
+      Object.assign(eventToEdit, {
+        name,
+        cluster,
+        cup,
+        description,
+        rules,
+        venue,
+        date,
+        startTime,
+        endTime,
+        places,
+        points
+      })
+      await eventToEdit.save()
+      logger.info(`Event ${eventToEdit.name} has been Edited by ${req.adminuser}`)
+      response.message = `Event ${eventToEdit.name} has been Edited by ${req.adminuser}`
+      res.json(response)
+    } catch (err) {
+      logger.error(err)
+      res.json({ title: 'Error', error: 'Internal server error' })
+    }
   }
 }
