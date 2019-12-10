@@ -16,5 +16,8 @@ router.get('/api/events/:id', eventsController.apiEventData)
 router.post('/api/admin/events/create', eventsController.validate, eventsController.apiCreateEvent)
 router.put('/api/admin/events/edit/:id/', eventsController.validate, eventsController.apiEditEvent)
 router.delete('/api/admin/events/:id', eventsController.apiDeleteEventData)
+router.get('/api/cluster/:cluster', eventsController.apiCusterFilter)
+router.get('/api/cup/:cup', eventsController.apiCupFilter)
+router.get('/api/clustercup/:cluster/:cup', eventsController.apiClusterCupFilter)
 
 module.exports = router
