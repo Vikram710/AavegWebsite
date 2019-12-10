@@ -4,4 +4,7 @@ const hostelController = require('../controllers/hostelController.js')
 
 router.get('/api/hostels', hostelController.getHostelData)
 
+router.get('/api/user/hostel', hostelController.getHostel)
+router.put('/api/user/hostel', hostelController.validateSetHostel, hostelController.setHostel)
+
 module.exports = router
