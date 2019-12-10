@@ -141,7 +141,7 @@ exports.apiLogin = async (req, res) => {
 exports.validateJWT = (req, res, next) => {
   if (!req.body.hasOwnProperty('APIToken')) {
     res.status(500)
-    res.send({ message: 'Missing API Token' })
+    return res.send({ message: 'Missing API Token' })
   }
 
   jwt.verify(req.body.APIToken, config.apiSecret, function (err, decoded) {
