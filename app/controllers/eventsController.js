@@ -7,6 +7,7 @@ const venueController = require('./venueController.js')
 const { check, validationResult } = require('express-validator/check')
 const moment = require('moment')
 const scoreboardController = require('../controllers/scoreboardController')
+const ObjectId = mongoose.Types.ObjectId
 
 /* Returns venue data, cluster names, cup names all at once for simplification */
 async function getVenueClusterCup () {
@@ -254,8 +255,13 @@ exports.apiEvents = async (req, res) => {
 
 exports.apiEventData = async (req, res) => {
   try {
-    const eventData = await Event.find({ _id: req.params.id }).exec()
-    return res.json(eventData)
+    const eventData = await Event.aggregate([
+      { $match: { _id: ObjectId(req.params.id) } },
+      { $group: { _id: '$name', details: { $push: '$$ROOT' } } }
+    ])
+    if (eventData) {
+      return res.json(eventData)
+    }
   } catch (e) {
     logger.error(e)
     return res.json({ title: 'Error', error: 'Internal server error' })
@@ -345,5 +351,58 @@ exports.apiEditEvent = async (req, res) => {
       logger.error(err)
       res.json({ title: 'Error', error: 'Internal server error' })
     }
+  }
+}
+
+// FILTERS
+exports.apiCusterFilter = async (req, res) => {
+  try {
+    const eventData = await Event.aggregate([
+      { $match: { cluster: req.params.cluster } },
+      { $group: { _id: '$name', details: { $push: '$$ROOT' } } }
+    ])
+    if (eventData) {
+      return res.json(eventData)
+    }
+  } catch (e) {
+    logger.error(e)
+    return res.json({ title: 'Error', error: 'Internal server error' })
+  }
+}
+
+exports.apiCupFilter = async (req, res) => {
+  try {
+    const eventData = await Event.aggregate([
+      { $match: { cup: req.params.cup } },
+      { $group: { _id: '$name', details: { $push: '$$ROOT' } } }
+    ])
+    if (eventData) {
+      return res.json(eventData)
+    }
+  } catch (e) {
+    logger.error(e)
+    return res.json({ title: 'Error', error: 'Internal server error' })
+  }
+}
+
+exports.apiClusterCupFilter = async (req, res) => {
+  try {
+    const eventData = await Event.aggregate([
+      {
+        $match: {
+          $and: [
+            { cup: req.params.cup },
+            { cluster: req.params.cluster }
+          ]
+        }
+      },
+      { $group: { _id: '$name', details: { $push: '$$ROOT' } } }
+    ])
+    if (eventData) {
+      return res.json(eventData)
+    }
+  } catch (e) {
+    logger.error(e)
+    return res.json({ title: 'Error', error: 'Internal server error' })
   }
 }
