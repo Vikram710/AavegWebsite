@@ -11,13 +11,17 @@ router.put('/admin/events/:id', eventsController.validate, eventsController.edit
 router.get('/events', eventsController.showEventsPage)
 router.get('/events/:id', eventsController.showEvent)
 // API
+router.get('/api/clusters', eventsController.apiGetClusters)
+router.get('/api/cups', eventsController.apiGetCups)
+
 router.get('/api/events', eventsController.apiEvents)
 router.get('/api/events/:id', eventsController.apiEventData)
+router.get('/api/events/cluster/:cluster', eventsController.apiCusterFilter)
+router.get('/api/events/cup/:cup', eventsController.apiCupFilter)
+router.get('/api/events/clustercup/:cluster/:cup', eventsController.apiClusterCupFilter)
+
 router.post('/api/admin/events/create', eventsController.validate, eventsController.apiCreateEvent)
 router.put('/api/admin/events/edit/:id/', eventsController.validate, eventsController.apiEditEvent)
 router.delete('/api/admin/events/:id', eventsController.apiDeleteEventData)
-router.get('/api/cluster/:cluster', eventsController.apiCusterFilter)
-router.get('/api/cup/:cup', eventsController.apiCupFilter)
-router.get('/api/clustercup/:cluster/:cup', eventsController.apiClusterCupFilter)
 
 module.exports = router

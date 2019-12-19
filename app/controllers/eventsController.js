@@ -354,6 +354,24 @@ exports.apiEditEvent = async (req, res) => {
   }
 }
 
+exports.apiGetCups = async (req, res) => {
+  try {
+    const cupData = await Cup.find({}).exec()
+    return res.send(cupData)
+  } catch (error) {
+    return res.status(500).send(error)
+  }
+}
+
+exports.apiGetClusters = async (req, res) => {
+  try {
+    const clusterData = await Cluster.find({}).exec()
+    return res.send(clusterData)
+  } catch (error) {
+    return res.status(500).send(error)
+  }
+}
+
 // FILTERS
 exports.apiCusterFilter = async (req, res) => {
   try {

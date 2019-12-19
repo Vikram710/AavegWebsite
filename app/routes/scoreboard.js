@@ -7,6 +7,10 @@ router.get('/admin/scoreboard', adminScoreboardController.showScoreForm)
 router.post('/admin/scoreboard', adminScoreboardController.createScore)
 router.get('/scoreboard', scoreController.showScoreboard)
 router.get('/getPoints', adminScoreboardController.getPoints)
-router.get('/api/scoreboard', scoreController.getScoreData)
+
+// API
+router.get('/api/scoreboard', scoreController.apiScoreboard)
+router.get('/api/scoreboard/full', scoreController.getScoreData)
+router.get('/api/scoreboard/event/:eventId', scoreController.apiEventScore)
 
 module.exports = router
