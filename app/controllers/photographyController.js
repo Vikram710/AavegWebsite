@@ -9,7 +9,7 @@ const adminController = require('../controllers/adminAuthController')
 
 exports.showPhotographyForm = async (req, res) => {
   if (await exceedSubmissionLimit(req.session.rollnumber)) {
-    res.render('error', { title: 'Error', error: 'You have already made 4 submissions' })
+    res.render('error', { title: 'Error', error: 'You have already made a submission' })
   } else {
     const tshirtRegistration = await TshirtDetail.find({ rollNumber: req.session.rollnumber }).exec()
     if (tshirtRegistration.length) {
