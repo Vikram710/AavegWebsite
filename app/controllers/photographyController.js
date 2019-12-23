@@ -1,6 +1,7 @@
 const logger = require('../../config/winston.js')
 const PhotographyDetail = require('../models/photographySubmission.js')
 const TshirtDetail = require('../models/TshirtDetail.js')
+const config = require('../../config/config.js')
 const hostelController = require('../controllers/hostelController')
 const { check, validationResult } = require('express-validator/check')
 const json2csv = require('json2csv').parse
@@ -91,7 +92,7 @@ exports.validate = [
     })
     .custom(async (rollNumber) => {
       const admins = await adminController.getAdminUsernames()
-      if (rollNumber.toString()[5] !== '8' && !admins.includes(rollNumber)) {
+      if (rollNumber.toString()[5] !== '8' && !config.rollNoList.includes(rollNumber) && !admins.includes(rollNumber)) {
         throw new Error('This is only for first years. 7 kazhutha vayasu aachu, first year fest la enna da vela? ')
       } else {
         return true
