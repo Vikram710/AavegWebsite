@@ -34,7 +34,7 @@ exports.showPhotographyForm = async (req, res) => {
 async function exceedSubmissionLimit (rollnumber) {
   try {
     const studentSubmission = await PhotographyDetail.find({ rollNumber: rollnumber }).exec()
-    return studentSubmission.length >= 4
+    return studentSubmission.length >= 1
   } catch (error) {
     logger.error(error)
     throw new Error(error)
