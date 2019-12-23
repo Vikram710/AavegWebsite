@@ -92,7 +92,7 @@ exports.validate = [
     })
     .custom(async (rollNumber) => {
       const admins = await adminController.getAdminUsernames()
-      if (rollNumber.toString()[5] !== '8' && !config.rollNoList.includes(rollNumber) && !admins.includes(rollNumber)) {
+      if (rollNumber.toString()[5] !== '9' && !config.rollNoList.includes(rollNumber) && !admins.includes(rollNumber)) {
         throw new Error('This is only for first years. 7 kazhutha vayasu aachu, first year fest la enna da vela? ')
       } else {
         return true
