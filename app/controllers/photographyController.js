@@ -1,5 +1,6 @@
 const logger = require('../../config/winston.js')
 const PhotographyDetail = require('../models/photographySubmission.js')
+const TshirtDetail = require('../models/TshirtDetail.js')
 const hostelController = require('../controllers/hostelController')
 const { check, validationResult } = require('express-validator/check')
 const json2csv = require('json2csv').parse
@@ -9,7 +10,23 @@ exports.showPhotographyForm = async (req, res) => {
   if (await exceedSubmissionLimit(req.session.rollnumber)) {
     res.render('error', { title: 'Error', error: 'You have already made 4 submissions' })
   } else {
-    res.render('photography/photography', { title: 'Photography', hostelNames: await hostelController.getHostels(), submitted: false })
+    const tshirtRegistration = await TshirtDetail.find({ rollNumber: req.session.rollnumber }).exec()
+    if (tshirtRegistration.length) {
+      const hostelNames = await hostelController.getHostelByName(tshirtRegistration[0].hostel)
+      console.log(hostelNames)
+      res.render('photography/photography', {
+        title: 'Photography',
+        hostelNames: hostelNames,
+        name: tshirtRegistration[0].name,
+        submitted: false
+      })
+    } else {
+      res.render('photography/photography', {
+        title: 'Photography',
+        hostelNames: await hostelController.getHostels(),
+        name: undefined,
+        submitted: false })
+    }
   }
 }
 

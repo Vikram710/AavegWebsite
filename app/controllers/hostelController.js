@@ -27,6 +27,11 @@ exports.getHostelById = async (id) => {
   return hostel
 }
 
+exports.getHostelByName = async (name) => {
+  const hostel = await Hostels.find({ name: name }).exec()
+  return hostel
+}
+
 exports.getHostelData = async (req, res) => {
   try {
     const hostelData = await Hostels.find({}).exec()

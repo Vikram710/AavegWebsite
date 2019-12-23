@@ -5,8 +5,8 @@ const adminScoreboardController = require('../controllers/adminScoreboardControl
 
 router.get('/admin/scoreboard', adminScoreboardController.showScoreForm)
 router.post('/admin/scoreboard', adminScoreboardController.createScore)
-router.get('/scoreboard', scoreController.showScoreboard)
-router.get('/getPoints', adminScoreboardController.getPoints)
+// router.get('/scoreboard', scoreController.showScoreboard)
+// router.get('/getPoints', adminScoreboardController.getPoints)
 
 // API
 router.get('/api/scoreboard', scoreController.apiScoreboard)
