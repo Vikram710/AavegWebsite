@@ -19,6 +19,7 @@ exports.showPhotographyForm = async (req, res) => {
         title: 'Photography',
         hostelNames: hostelNames,
         name: tshirtRegistration[0].name,
+        phone: tshirtRegistration[0].phone,
         submitted: false
       })
     } else {
@@ -26,6 +27,7 @@ exports.showPhotographyForm = async (req, res) => {
         title: 'Photography',
         hostelNames: await hostelController.getHostels(),
         name: undefined,
+        phone: undefined,
         submitted: false })
     }
   }

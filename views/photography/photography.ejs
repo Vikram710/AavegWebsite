@@ -8,7 +8,8 @@
       <div>You have successfully submitted</div>
     </div>
   <%}else{%>
-    <form method="post" action="photography ">
+    <label><h2><a href="https://drive.google.com/open?id=1CmBQ2_aV0Qfyi_ehNvjIuPhOhVJWfnWq">Rulebook</a></h2></label>
+    <form method="post" action="photography">
       <div class="row gtr-uniform">
         <div class="col-6 col-12-small">
           <label for="name">Name</label>
@@ -49,7 +50,7 @@
         </div>
         <div class="col-6 col-12-small">
           <label for="phoneNumber">Mobile</label>
-          <input type="number" name="phoneNumber" id="phoneNumber" placeholder="Enter mobile number" required>
+          <input type="number" name="phoneNumber" value="<%=phone == undefined ? "" : phone%>" id="phoneNumber" placeholder="Enter mobile number" required <%=phone == undefined ? "" : "readonly"%>>
         </div>
         <div class="col-12">
           <label for="link">Link</label>
