@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
   res.redirect('photography')
 })
 
-router.get('/theme', (req, res) => {
+app.get('/theme', (req, res) => {
   res.redirect('https://youtu.be/s6YZOTSUGKs')
 })
 
