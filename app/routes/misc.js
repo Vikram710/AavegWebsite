@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+router.get('/theme', (req, res) => {
+  res.redirect('https://youtu.be/s6YZOTSUGKs')
+})
+
 router.get('/about', (req, res) => {
   res.render('about', { title: 'About Aaveg' })
 })
