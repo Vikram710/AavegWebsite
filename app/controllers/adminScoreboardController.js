@@ -5,12 +5,6 @@ const Events = require('../models/Event.js')
 const Hostels = require('../models/Hostel.js')
 const Score = require('../models/Score.js')
 
-exports.showScoreForm = async (req, res) => {
-  const hostels = await Hostels.find({}).exec()
-  const eventList = await Events.find({}).exec()
-  res.render('auth/addScore', { eventList: eventList, hostels: hostels, title: 'Add Score' })
-}
-
 exports.getPoints = async (req, res) => {
   const event = await Events.findById(req.query.data).exec()
   return res.status(200).send(event.points)

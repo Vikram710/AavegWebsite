@@ -16,7 +16,6 @@ const studentAuthRoutes = require('./app/routes/studentAuth.js')
 const eventRoutes = require('./app/routes/events')
 const hostelRoutes = require('./app/routes/hostel.js')
 const miscRoutes = require('./app/routes/misc')
-const authSetup = require('./app/utils/authSetup')
 const scoreRoutes = require('./app/routes/scoreboard.js')
 // const tshirtRoutes = require('./app/routes/tshirtReg.js')
 const router = express.Router()
@@ -38,7 +37,6 @@ app.use(
     saveUninitialized: true
   })
 )
-authSetup(passport, app)
 
 // ===========Swagger============
 
