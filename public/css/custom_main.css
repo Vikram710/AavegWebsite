@@ -170,7 +170,7 @@ text-decoration: none;
 width: 100%;
 }
 
-input[type="datetime-local"]:invalid,
+input[type="datetime-local"]:invalid
 {
 box-shadow: none;
 }
