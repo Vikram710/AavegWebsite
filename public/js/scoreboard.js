@@ -20,28 +20,28 @@ $('.mini-hostel-logo').each((index, ele) => {
 
 const culturalsData = [
   data.standings.culturals.Agate,
-  data.standings.culturals.Diamond,
-  data.standings.culturals.Coral,
-  data.standings.culturals.Jade,
+  data.standings.culturals.Azurite,
+  data.standings.culturals.Bloodstone,
+  data.standings.culturals.Cobalt,
   data.standings.culturals.Opal
 ]
 const spectrumData = [
   data.standings.spectrum.Agate,
-  data.standings.spectrum.Diamond,
-  data.standings.spectrum.Coral,
-  data.standings.spectrum.Jade,
+  data.standings.spectrum.Azurite,
+  data.standings.spectrum.Bloodstone,
+  data.standings.spectrum.Cobalt,
   data.standings.spectrum.Opal
 ]
 const sportsData = [
   data.standings.sports.Agate,
-  data.standings.sports.Diamond,
-  data.standings.sports.Coral,
-  data.standings.sports.Jade,
+  data.standings.sports.Azurite,
+  data.standings.sports.Bloodstone,
+  data.standings.sports.Cobalt,
   data.standings.sports.Opal
 ]
 
 let barChartDataCultural = {// eslint-disable-line
-  labels: ['Agate', 'Diamond', 'Coral', 'Jade', 'Opal'],
+  labels: ['Agate', 'Azurite', 'Bloodstone', 'Cobalt', 'Opal'],
   datasets: [{
     label: 'Cultural',
     backgroundColor: '#09bc8a',
@@ -51,7 +51,7 @@ let barChartDataCultural = {// eslint-disable-line
 }
 
 let barChartDataSpectrum = {// eslint-disable-line
-  labels: ['Agate', 'Diamond', 'Coral', 'Jade', 'Opal'],
+  labels: ['Agate', 'Azurite', 'Bloodstone', 'Cobalt', 'Opal'],
   datasets: [{
     label: 'Spectrum',
     backgroundColor: '#75dddd',
@@ -61,7 +61,7 @@ let barChartDataSpectrum = {// eslint-disable-line
 }
 
 let barChartDataSports = {// eslint-disable-line
-  labels: ['Agate', 'Diamond', 'Coral', 'Jade', 'Opal'],
+  labels: ['Agate', 'Azurite', 'Bloodstone', 'Cobalt', 'Opal'],
   datasets: [{
     label: 'Sports',
     backgroundColor: '#f49d6e',
@@ -71,7 +71,7 @@ let barChartDataSports = {// eslint-disable-line
 }
 
 const barChartData = {
-  labels: ['Agate', 'Diamond', 'Coral', 'Jade', 'Opal'],
+  labels: ['Agate', 'Azurite', 'Bloodstone', 'Cobalt', 'Opal'],
   datasets: [{
     label: 'Cultural',
     backgroundColor: '#09bc8a',
