@@ -20,3 +20,7 @@ exports.validateJWT = (req, res, next) => {
     }
   })
 }
+
+exports.isAdmin = (req, res) => {
+  res.send({ isAdmin: true })
+}
