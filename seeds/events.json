@@ -1,7 +1,7 @@
 [
 	{
 	  "name": "CTF",
-	  "cup": "spectrum",
+	  "cup": "Sports",
 	  "points": [10, 7, 5],
 	  "venue": "string",
 	  "cluster": "Gaming",
@@ -13,7 +13,7 @@
 	},
 	{
 	  "name": "Mini militia",
-	  "cup": "spectrum",
+	  "cup": "Spectrum",
 	  "points": [10, 7, 5],
 	  "venue": "string",
 	  "cluster": "Gaming",
@@ -24,7 +24,7 @@
 	  "date": "2/1/19"	},
 	{
 	  "name": "Name the tune - tamil",
-	  "cup": "cultural",
+	  "cup": "Culturals",
 	  "points": [10, 7, 5],
 	  "venue": "string",
 	  "cluster": "Culturals",
