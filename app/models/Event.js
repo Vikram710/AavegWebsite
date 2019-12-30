@@ -6,14 +6,12 @@ const eventSchema = new mongoose.Schema({
   cup: 'string',
   points: ['number'],
   places: 'number',
-  venue: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Venue'
-  },
+  venue: 'string',
   description: 'string',
   rules: 'string',
-  startTime: 'date',
-  endTime: 'date'
+  startTime: 'string',
+  endTime: 'string',
+  date: 'string'
 })
 
 module.exports = mongoose.model('Event', eventSchema)

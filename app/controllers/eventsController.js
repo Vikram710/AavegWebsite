@@ -53,8 +53,8 @@ exports.validate = [
     .exists().withMessage('Venue is missing')
     .custom(async (venue) => {
       const venueData = await venueController.getVenues()
-      const venueIDs = venueData.map(v => v._id.toString())
-      if (!venueIDs.includes(venue)) {
+      const venueName = venueData.map(v => v.name.toString())
+      if (!venueName.includes(venue)) {
         throw new Error('Venue data incorrect')
       } else {
         return true
@@ -130,6 +130,10 @@ exports.apiCreateEvent = async (req, res) => {
     res.json(response)
   } else {
     try {
+      req.body.date = req.body.startTime.split(' ')[0]
+      req.body.startTime = req.body.startTime.split(' ')[1]
+      req.body.endTime = req.body.endTime.split(' ')[1]
+      console.log(req.body)
       const { name, cluster, cup, description, rules, date, startTime, endTime, points, venue, places } = req.body
       const newEvent = await Event.create({
         name,
