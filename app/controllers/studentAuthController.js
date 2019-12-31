@@ -52,7 +52,7 @@ exports.apiLogin = async (req, res) => {
           }
           response.user_id = newstudent.id
 
-          response.APIToken = jwt.sign({ user_id: response.user_id, time: Date.now() }, config.apiSecret)
+          response.APIToken = jwt.sign({ user_id: response.user_id, rollnumber: req.body.rollnumber, time: Date.now() }, config.apiSecret)
 
           logger.info(`student ${req.body.rollnumber} logged in using API`)
 
@@ -62,7 +62,7 @@ exports.apiLogin = async (req, res) => {
       } else {
         response.user_id = student.id
 
-        response.APIToken = jwt.sign({ user_id: response.user_id, time: Date.now() }, config.apiSecret)
+        response.APIToken = jwt.sign({ user_id: response.user_id, rollnumber: req.body.rollnumber, time: Date.now() }, config.apiSecret)
 
         logger.info(`student ${req.body.rollnumber} logged in using API`)
 
