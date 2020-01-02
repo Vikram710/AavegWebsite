@@ -11,6 +11,7 @@ exports.validateJWT = (req, res, next) => {
     if (err) {
       logger.error(err)
     }
+    console.log(accessList, decoded, decoded.rollnumber)
     if (typeof decoded !== 'undefined' && accessList.includes(decoded.rollnumber)) {
       req.adminuser = decoded.rollnumber
       next()

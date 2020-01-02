@@ -36,7 +36,7 @@
 	},
 	{
 	  "name": "JAM",
-	  "cup": "cultural",
+	  "cup": "Culturals",
 	  "points": [10, 7, 5],
 	  "venue": "string",
 	  "cluster": "Lits",
