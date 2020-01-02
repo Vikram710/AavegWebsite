@@ -4,7 +4,7 @@ const engine = require('ejs-locals')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongoose = require('mongoose')
-const passport = require('passport')
+// const passport = require('passport')
 const helmet = require('helmet')
 const path = require('path')
 const methodOverride = require('method-override')
@@ -16,7 +16,6 @@ const studentAuthRoutes = require('./app/routes/studentAuth.js')
 const eventRoutes = require('./app/routes/events')
 const hostelRoutes = require('./app/routes/hostel.js')
 const miscRoutes = require('./app/routes/misc')
-const authSetup = require('./app/utils/authSetup')
 const scoreRoutes = require('./app/routes/scoreboard.js')
 // const tshirtRoutes = require('./app/routes/tshirtReg.js')
 const router = express.Router()
@@ -38,7 +37,6 @@ app.use(
     saveUninitialized: true
   })
 )
-authSetup(passport, app)
 
 // ===========Swagger============
 
