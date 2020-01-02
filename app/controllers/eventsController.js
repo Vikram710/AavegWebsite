@@ -41,20 +41,12 @@ exports.validate = [
         return true
       }
     }),
-  check('points')
-    .custom(async (points) => {
-      if (!Number(points[0])) {
-        throw new Error('Enter points to be allotted to at least 1 winner')
-      } else {
-        return true
-      }
-    }),
   check('venue')
     .exists().withMessage('Venue is missing')
     .custom(async (venue) => {
       const venueData = await venueController.getVenues()
-      const venueIDs = venueData.map(v => v._id.toString())
-      if (!venueIDs.includes(venue)) {
+      const venueName = venueData.map(v => v.name.toString())
+      if (!venueName.includes(venue)) {
         throw new Error('Venue data incorrect')
       } else {
         return true
@@ -65,16 +57,7 @@ exports.validate = [
   check('rules')
     .trim().not().isEmpty().withMessage('Rules is missing'),
   check('startTime')
-    .not().isEmpty().withMessage('Start time is missing'),
-  check('endTime')
-    .not().isEmpty().withMessage('End time is missing')
-    .custom((endTime, { req }) => {
-      if (endTime > req.body.startTime || !req.body.startTime) {
-        return true
-      } else {
-        throw new Error('End time should be greater than start time, unless you have a time machine ;p')
-      }
-    })
+    .not().isEmpty().withMessage('Start time is missing')
 ]
 
 exports.apiEvents = async (req, res) => {
@@ -130,7 +113,10 @@ exports.apiCreateEvent = async (req, res) => {
     res.json(response)
   } else {
     try {
-      const { name, cluster, cup, description, rules, date, startTime, endTime, points, venue, places } = req.body
+      req.body.date = req.body.startTime.split(' ')[0]
+      req.body.startTime = req.body.startTime.split(' ')[1]
+      console.log(req.body)
+      const { name, cluster, cup, description, rules, date, startTime, points, venue, places } = req.body
       const newEvent = await Event.create({
         name,
         cluster,
@@ -139,12 +125,10 @@ exports.apiCreateEvent = async (req, res) => {
         rules,
         date,
         startTime,
-        endTime,
         points,
         venue,
         places
       })
-      console.log(req.adminuser)
       logger.info(`Event ${newEvent.name} has been created by ${req.adminuser}`)
       response.message = `Event ${newEvent.name} has been created by ${req.adminuser}`
       res.json(response)
