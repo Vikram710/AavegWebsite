@@ -114,7 +114,6 @@ exports.apiCreateEvent = async (req, res) => {
   } else {
     try {
       req.body.date = req.body.startTime.split(' ')[0]
-      req.body.startTime = req.body.startTime.split(' ')[1]
       console.log(req.body)
       const { name, cluster, cup, description, rules, date, startTime, points, venue, places } = req.body
       const newEvent = await Event.create({
