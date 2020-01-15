@@ -102,6 +102,28 @@ exports.apiDeleteEventData = async (req, res) => {
   }
 }
 
+function formatAMPM (date) {
+  var hours = date.getHours()
+  var minutes = date.getMinutes()
+  var ampm = hours >= 12 ? 'pm' : 'am'
+  hours = hours % 12
+  hours = hours || 12 // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0' + minutes : minutes
+  var strTime = hours + ':' + minutes + ' ' + ampm
+  return strTime
+}
+
+function formattedDate (d) {
+  let month = String(d.getMonth() + 1)
+  let day = String(d.getDate())
+  const year = String(d.getFullYear())
+
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+
+  return `${day}/${month}/${year}`
+}
+
 exports.apiCreateEvent = async (req, res) => {
   const errors = validationResult(req).array()
   const errorMessages = errors.map(error => error.msg)
@@ -113,8 +135,8 @@ exports.apiCreateEvent = async (req, res) => {
     res.json(response)
   } else {
     try {
-      req.body.date = req.body.startTime.split(' ')[0]
-      req.body.startTime = req.body.startTime.split(' ')[1]
+      req.body.date = formattedDate(new Date(req.body.startTime.split('T')[0]))
+      req.body.startTime = formatAMPM(new Date(req.body.startTime.split('T')))
       console.log(req.body)
       const { name, cluster, cup, description, rules, date, startTime, points, venue, places } = req.body
       const newEvent = await Event.create({
