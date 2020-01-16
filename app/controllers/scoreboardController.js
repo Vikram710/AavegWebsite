@@ -219,9 +219,9 @@ const getEventScores = async function getEventScores(eventId) {
   let returnData = {}
   scoreData.forEach(score => {
     if (typeof returnData[score.position] === 'undefined') {
-      returnData[score.position] = []
+      returnData[score.position] = {points: score.points, hostels: []}
     }
-    returnData[score.position].push(score.hostel.name)
+    returnData[score.position].hostels.push({_id: score.hostel._id, name: score.hostel.name})
   })
   return returnData
 }
