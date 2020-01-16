@@ -2,7 +2,6 @@ const config = require('../../config/config')
 const logger = require('../../config/winston.js')
 const { check, validationResult } = require('express-validator/check')
 const Events = require('../models/Event.js')
-const Hostels = require('../models/Hostel.js')
 const Score = require('../models/Score.js')
 
 exports.getPoints = async (req, res) => {
@@ -51,7 +50,7 @@ exports.createScore = async (req, res) => {
     // })
     const noOfPositions = req.body.positions
     const noOfPoints = req.body.points
-    console.log(noOfPositions, noOfPoints);
+    console.log(noOfPositions, noOfPoints)
     for (let j of Object.keys(noOfPositions)) {
       const hostelList = noOfPositions[j]// get hostels at a particular position
       const points = noOfPoints[j]// get points at a particular position
@@ -110,7 +109,7 @@ exports.apiCreateScore = async (req, res) => {
           position: j,
           points: points
         })
-        console.log(pos);
+        console.log(pos)
         try {
           const savedPos = await pos.save()
           logger.info(`Scores of ${savedPos._id} added by ${req.adminuser}`)
@@ -120,6 +119,6 @@ exports.apiCreateScore = async (req, res) => {
         }
       }
     }
-    res.send({ message: "Success" })
+    res.send({ message: 'Success' })
   }
 }
