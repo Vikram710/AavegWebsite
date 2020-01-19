@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const logger = require('../../config/winston.js')
 const Event = require('../models/Event.js')
 const Cup = require('../models/Cup.js')
+const Venue = require('../models/Venue.js')
 const Cluster = require('../models/Cluster.js')
 const venueController = require('./venueController.js')
 const { check, validationResult } = require('express-validator/check')
@@ -204,6 +205,15 @@ exports.apiGetCups = async (req, res) => {
   try {
     const cupData = await Cup.find({}).exec()
     return res.send(cupData)
+  } catch (error) {
+    return res.status(500).send(error)
+  }
+}
+
+exports.apiGetVenue = async (req, res) => {
+  try {
+    const venueData = await Venue.find({}).exec()
+    return res.send(venueData)
   } catch (error) {
     return res.status(500).send(error)
   }

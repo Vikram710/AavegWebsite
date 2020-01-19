@@ -4,6 +4,7 @@ const eventsController = require('../controllers/eventsController.js')
 
 router.get('/api/clusters', eventsController.apiGetClusters)
 router.get('/api/cups', eventsController.apiGetCups)
+router.get('/api/venue', eventsController.apiGetVenue)
 
 router.get('/api/events', eventsController.apiEvents)
 router.get('/api/events/:id', eventsController.apiEventData)
