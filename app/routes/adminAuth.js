@@ -3,7 +3,7 @@ const router = express.Router()
 const adminAuthController = require('../controllers/adminAuthController.js')
 
 // API
-router.use('/api/admin/', adminAuthController.validateJWT)
-router.post('/api/admin/isAdmin/', adminAuthController.isAdmin)
+router.use('/admin/', adminAuthController.validateJWT)
+router.post('/admin/isAdmin/', adminAuthController.isAdmin)
 
 module.exports = router

@@ -51,7 +51,7 @@ exports.createScore = async (req, res) => {
     const noOfPositions = req.body.positions
     const noOfPoints = req.body.points
     console.log(noOfPositions, noOfPoints)
-    for (let j of Object.keys(noOfPositions)) {
+    for (const j of Object.keys(noOfPositions)) {
       const hostelList = noOfPositions[j]// get hostels at a particular position
       const points = noOfPoints[j]// get points at a particular position
       for (let i = 0; i < hostelList.length; i++) {
@@ -99,7 +99,7 @@ exports.apiCreateScore = async (req, res) => {
     const scoreData = JSON.parse(req.body.scoreData)
     const noOfPositions = scoreData.positions
     const noOfPoints = scoreData.points
-    for (let j of Object.keys(noOfPositions)) {
+    for (const j of Object.keys(noOfPositions)) {
       const hostelList = noOfPositions[j]// get hostels at a particular position
       const points = noOfPoints[j]// get points at a particular position
       for (let i = 0; i < hostelList.length; i++) {
