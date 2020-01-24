@@ -4,6 +4,6 @@ const adminAuthController = require('../controllers/adminAuthController.js')
 
 // API
 router.use('/admin/', adminAuthController.validateJWT)
-router.post('/admin/isAdmin/', adminAuthController.isAdmin)
+router.post('/admin/isAdmin/', adminAuthController.validateJWT, adminAuthController.isAdmin)
 
 module.exports = router
