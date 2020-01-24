@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const bodyParser = require('body-parser')
 const session = require('express-session')
@@ -22,6 +23,7 @@ const router = express.Router()
 // ==================Middleware================
 
 app.use(helmet())
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 mongoose.connect(config.dbURI)
@@ -46,14 +48,6 @@ app.use('/api/v1', router)
 
 app.get('/', (req, res) => {
   res.send('What\'re you doing here?')
-})
-
-// app.use(tshirtRoutes)
-// app.use(photographyRoutes)
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
 })
 app.use(studentAuthRoutes)
 app.use(adminAuthRoutes)
